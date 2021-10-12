@@ -6,7 +6,7 @@ import com.revature.models.Login;
 
 public interface LoginDAO {
 	
-	public List<Login> findAll();
+	public List<Login> listAllUsers();
 	
 	public Login findUser();
 	

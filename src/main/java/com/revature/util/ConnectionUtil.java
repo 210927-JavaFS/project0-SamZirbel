@@ -17,8 +17,9 @@ public class ConnectionUtil {
 		}
 		
 		// VV Port 5432 : Default Postgresql Port
-		// VV demos2 Is Our Database Name
-		String url = "jdbc:postgresql://javafs-210927-sz.ctjhaliedh90.us-east-2.rds.amazonaws.com:5432/demos2";
+		// VV Database Name At End Of URL Needs To Be The One You Are Linking To
+		// VV Database : forrestgame_project0
+		String url = "jdbc:postgresql://javafs-210927-sz.ctjhaliedh90.us-east-2.rds.amazonaws.com:5432/forrestgame_project0";
 		
 		// VV Workaround So Password Not Displayed On Github
 		// VV Use Environment Variables TO Hide Things
