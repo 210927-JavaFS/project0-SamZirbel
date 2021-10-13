@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -59,9 +60,35 @@ public class LoginDAOImpl implements LoginDAO {
 	}
 
 	@Override
-	public boolean addUser() {
-		// TODO Auto-generated method stub
+	public boolean addUser(String username, String password) {
+		
+		try (Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql =
+				""
+				+ "INSERT INTO login(username, userpassword)"
+				+ "VALUES (?, ?);"
+				;
+				
+				PreparedStatement preparedstatement = connect.prepareStatement(sql);
+				
+				preparedstatement.setString(1, username);
+				preparedstatement.setString(2, password);
+				
+				preparedstatement.execute();
+				
+				return true;
+				
+		
+		}
+		catch (SQLException e){
+		
+			e.printStackTrace();
+		
+		}
+		
 		return false;
+		
 	}
 
 }

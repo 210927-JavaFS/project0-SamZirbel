@@ -6,6 +6,15 @@ public class Login {
 	
 	private String password;
 	
+	public Login() {
+	
+		super();
+		
+		this.username = "Undefined";
+		this.password = "Undefined";
+
+	}
+	
 	public Login(String username, String password) {
 		
 		super();

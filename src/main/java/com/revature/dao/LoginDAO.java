@@ -10,6 +10,6 @@ public interface LoginDAO {
 	
 	public Login findUser();
 	
-	public boolean addUser();
+	public boolean addUser(String username, String password);
 
 }

@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
+import com.revature.procedures.UserCredentialProcedure;
+
 public class MenuController {
 
 	Scanner scanin = new Scanner(System.in);
@@ -20,6 +22,7 @@ public class MenuController {
 			
 			echo("0 : Exit");
 			echo("1 : View All User Information");
+			echo("2 : Add User");
 			
 			response = scanin.nextLine();
 		
@@ -27,6 +30,8 @@ public class MenuController {
 				case "1" :
 					logincontroller.listAllUsers();
 					break;
+				case "2" :
+					logincontroller.addUser();
 				default :
 					break;
 					

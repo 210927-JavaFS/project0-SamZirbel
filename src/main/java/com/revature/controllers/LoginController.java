@@ -20,7 +20,27 @@ public class LoginController {
 			System.out.println(L);
 		
 		}
+		
+		return;
 	
+	}
+	
+	public void addUser() {
+		
+		echo("Adding New User");
+		
+		if (loginservice.addUser()) {
+		
+			echo("User Successfully Added");
+		
+		}
+		else {
+		
+			echo("Failed To Add User");
+		
+		}
+		
+		return;
 	
 	}
 	
