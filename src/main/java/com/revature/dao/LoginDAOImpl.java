@@ -54,9 +54,48 @@ public class LoginDAOImpl implements LoginDAO {
 	}
 
 	@Override
-	public Login findUser() {
-		// TODO Auto-generated method stub
+	public List<Login> findUser(String username) {
+
+		try(Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql =
+				""
+				+ "SELECT * "
+				+ "FROM login "
+				+ "WHERE username = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, username);
+			
+			ResultSet result = preparedstatement.executeQuery();
+			
+			List<Login> matchingUsers = new ArrayList<>();
+			
+			while (result.next()) {
+			
+				Login login = new Login(
+					result.getString("username"),
+					result.getString("userpassword")
+					);
+					
+					matchingUsers.add(login);
+			
+			}
+			
+			return matchingUsers;
+			
+		
+		}
+		catch (SQLException e){
+		
+			e.printStackTrace();
+		
+		}
+
 		return null;
+		
 	}
 
 	@Override
@@ -121,4 +160,45 @@ public class LoginDAOImpl implements LoginDAO {
 		return false;
 		
 	}
+	
+	@Override
+	public boolean updateUsername(String oldUsername, String newUsername) {
+	
+		try (Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql =
+				""
+				+ "UPDATE login "
+				+ "SET username = ? "
+				+ "WHERE username = ?;"
+				;
+				
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, newUsername);
+			preparedstatement.setString(2, oldUsername);
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+	
+	}
+	
+	
+	public boolean updatePassword(String username, String password) {
+	
+		return true;
+	
+	}
+	
+	
 }

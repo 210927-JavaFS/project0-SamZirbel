@@ -2,7 +2,7 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-import com.revature.procedures.UserCredentialProcedure;
+import com.revature.subservices.UserCredentialSubservice;
 
 public class MenuController {
 
@@ -24,6 +24,8 @@ public class MenuController {
 			echo("1 : View All User Information");
 			echo("2 : Add User");
 			echo("3 : Delete User");
+			echo("4 : Find A User");
+			echo("5 : Update Username");
 			
 			response = scanin.nextLine();
 		
@@ -36,6 +38,12 @@ public class MenuController {
 					break;
 				case "3" :
 					logincontroller.deleteUser();
+					break;
+				case "4" :
+					logincontroller.findUser();
+					break;
+				case "5" :
+					logincontroller.updateUsername();
 					break;
 				default :
 					break;

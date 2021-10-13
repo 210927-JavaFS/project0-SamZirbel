@@ -1,21 +1,21 @@
-package com.revature.procedures;
+package com.revature.subservices;
 
 import java.util.Scanner;
 
 import com.revature.models.Login;
 
-public class UserCredentialProcedure {
+public class UserCredentialSubservice {
 
 	static Scanner scanin = new Scanner(System.in);
 
 	public static Login getCredentials() {
 	
-		echo("Initiating User Credential Procedure");
+		echo("Initiating User Credential Subservice");
 		
 		Login user = new Login();
 		
-		String username = QueryUsernameProcedure.queryUsername();
-		String password = QueryPasswordProcedure.queryPassword();
+		String username = QueryUsernameSubservice.queryUsername();
+		String password = QueryPasswordSubservice.queryPassword();
 		
 		user.setUsername(username);
 		user.setPassword(password);

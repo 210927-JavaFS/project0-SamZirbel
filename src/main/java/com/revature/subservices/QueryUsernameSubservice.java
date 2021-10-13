@@ -1,8 +1,8 @@
-package com.revature.procedures;
+package com.revature.subservices;
 
 import java.util.Scanner;
 
-public class QueryUsernameProcedure {
+public class QueryUsernameSubservice {
 
 	static Scanner scanin = new Scanner(System.in);
 
