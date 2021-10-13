@@ -11,5 +11,7 @@ public interface LoginDAO {
 	public Login findUser();
 	
 	public boolean addUser(String username, String password);
+	
+	public boolean deleteUser(String username);
 
 }

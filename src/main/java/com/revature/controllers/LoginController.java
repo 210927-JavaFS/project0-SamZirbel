@@ -44,6 +44,25 @@ public class LoginController {
 	
 	}
 	
+	public void deleteUser() {
+	
+		echo("User Deletion Process Initiated");
+		
+		if (loginservice.deleteUser()) {
+		
+			echo("User Sucessfully Deleted");
+			
+		}
+		else {
+			
+			echo("Unable To Delete User");
+			
+		}
+		
+		return;
+	
+	}
+	
 	public void echo(String toPrint) {
 	
 		System.out.println(toPrint);

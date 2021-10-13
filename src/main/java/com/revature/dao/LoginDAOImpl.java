@@ -20,7 +20,7 @@ public class LoginDAOImpl implements LoginDAO {
 			
 			String sql =
 				""
-				+ "SELECT *"
+				+ "SELECT * "
 				+ "FROM login;"
 				;
 				
@@ -66,7 +66,7 @@ public class LoginDAOImpl implements LoginDAO {
 		
 			String sql =
 				""
-				+ "INSERT INTO login(username, userpassword)"
+				+ "INSERT INTO login(username, userpassword) "
 				+ "VALUES (?, ?);"
 				;
 				
@@ -91,4 +91,34 @@ public class LoginDAOImpl implements LoginDAO {
 		
 	}
 
+	@Override
+	public boolean deleteUser(String username) {
+	
+		try (Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql = 
+				""
+				+ "DELETE FROM login "
+				+ "WHERE (username = ?);"
+				;
+				
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, username);
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+			
+		}
+	
+		return false;
+		
+	}
 }

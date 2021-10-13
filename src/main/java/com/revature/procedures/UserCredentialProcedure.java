@@ -1,7 +1,5 @@
 package com.revature.procedures;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.revature.models.Login;
@@ -16,47 +14,14 @@ public class UserCredentialProcedure {
 		
 		Login user = new Login();
 		
-		user.setUsername(queryUsername());
-		user.setPassword(queryPassword());
+		String username = QueryUsernameProcedure.queryUsername();
+		String password = QueryPasswordProcedure.queryPassword();
+		
+		user.setUsername(username);
+		user.setPassword(password);
 		
 		return user;
 		
-	}
-	
-	public static String queryUsername() {
-	
-		echo("Defining Username");
-		
-		String username = null;
-		
-		while (username == null) {
-
-			echo("What Is The Pertinent Username?");
-			
-			username = scanin.nextLine();
-		
-		}
-		
-		return username;
-	
-	}
-	
-	public static String queryPassword() {
-	
-		echo("Defining Password");
-		
-		String password = null;
-		
-		while (password == null) {
-		
-			echo("What Is The Pertinent Password?");
-			
-			password = scanin.nextLine();
-			
-		}
-		
-		return password;
-	
 	}
 	
 	public static void echo(String toprint) {

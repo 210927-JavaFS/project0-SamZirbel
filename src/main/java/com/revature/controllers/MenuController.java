@@ -23,6 +23,7 @@ public class MenuController {
 			echo("0 : Exit");
 			echo("1 : View All User Information");
 			echo("2 : Add User");
+			echo("3 : Delete User");
 			
 			response = scanin.nextLine();
 		
@@ -32,6 +33,10 @@ public class MenuController {
 					break;
 				case "2" :
 					logincontroller.addUser();
+					break;
+				case "3" :
+					logincontroller.deleteUser();
+					break;
 				default :
 					break;
 					
