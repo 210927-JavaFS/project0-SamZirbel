@@ -97,6 +97,50 @@ public class LoginDAOImpl implements LoginDAO {
 		return null;
 		
 	}
+	
+	@Override
+	public List<Login> getPassword(String username) {
+	
+		try (Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql = 
+				""
+				+ "SELECT userpassword "
+				+ "FROM login "
+				+ "WHERE username = ?;"
+				;
+				
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, username);
+			
+			ResultSet result = preparedstatement.executeQuery();
+			
+			List<Login> passwordQuery = new ArrayList<>();
+			
+			while (result.next()) {
+			
+				Login login = new Login(
+					username,
+					result.getString("userpassword")
+					);
+					
+				passwordQuery.add(login);
+			
+			}
+			
+			return passwordQuery;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return null;
+	
+	}
 
 	@Override
 	public boolean addUser(String username, String password) {
@@ -196,7 +240,32 @@ public class LoginDAOImpl implements LoginDAO {
 	
 	public boolean updatePassword(String username, String password) {
 	
-		return true;
+		try (Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql =
+				""
+				+ "UPDATE login "
+				+ "SET userpassword = ? "
+				+ "WHERE username = ?;"
+				;
+				
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, password);
+			preparedstatement.setString(2, username);
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+			
+		}
+	
+		return false;
 	
 	}
 	

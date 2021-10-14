@@ -5,6 +5,8 @@ import java.util.List;
 import com.revature.dao.LoginDAO;
 import com.revature.dao.LoginDAOImpl;
 import com.revature.models.Login;
+import com.revature.subservices.ObtainPasswordSubservice;
+import com.revature.subservices.QueryPasswordSubservice;
 import com.revature.subservices.QueryUsernameSubservice;
 import com.revature.subservices.UpdateUsernameQuerySubservice;
 import com.revature.subservices.UserCredentialSubservice;
@@ -12,9 +14,6 @@ import com.revature.subservices.UserCredentialSubservice;
 public class LoginService {
 
 	private LoginDAO logindao = new LoginDAOImpl();
-	
-	
-	
 	
 	public List<Login> listAllUsers(){
 	
@@ -27,6 +26,34 @@ public class LoginService {
 		String username = QueryUsernameSubservice.queryUsername();
 	
 		return logindao.findUser(username);
+	
+	}
+	
+	public int getPassword() {
+	
+		String username = QueryUsernameSubservice.queryUsername();
+		
+		if (logindao.findUser(username).size() == 0) {
+		
+			return 0;
+		
+		}
+		
+		List<Login> result = logindao.getPassword(username);
+		
+		// VV May Be A Redundant Thought
+		// VV If No Result Login Is Found It Was Not WIthin Database
+		if (result.size() == 0) {
+		
+			return 2;
+		
+		}
+		// VV Password Gotten Sucessfully
+		else {
+		
+			return 1;
+		
+		}
 	
 	}
 	
@@ -110,6 +137,35 @@ public class LoginService {
 			return 1;
 				
 		}
+		
+	}
+	
+	public int updatePassword() {
+	
+		String username = QueryUsernameSubservice.queryUsername();
+		String password = QueryPasswordSubservice.queryPassword();
+		
+		// VV If User Is Not Found In Database Return 0
+		if (logindao.findUser(username).size() == 0) {
+		
+			return 0;
+			
+		}
+		// VV If Current Password Is The Same As The Previous Password
+		else if (ObtainPasswordSubservice.obtainPassword(username).equals(password)) {
+		
+			return 2;
+		
+		}
+		// VV Successfully Updated Password
+		else {
+		
+			logindao.updatePassword(username, password);
+			
+			return 1;
+			
+		}
+	
 	}
 
 }

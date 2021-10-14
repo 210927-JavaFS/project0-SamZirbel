@@ -70,6 +70,29 @@ public class LoginController {
 	
 	}
 	
+	public void getPassword() {
+	
+		echo ("Fetching Password");
+		
+		int queryResult = loginservice.getPassword();
+		
+		switch (queryResult) {
+		
+		case 0:
+		case 2:
+			echo("    [Password Query Failed]");
+			echo("    [Provided User Not In Database]");
+			break;
+		case 1:
+			echo("Sucessfully Obtained Password");
+			break;
+		
+		}
+		
+		return;
+	
+	}
+	
 	public void addUser() {
 		
 		echo("Adding New User");
@@ -135,6 +158,32 @@ public class LoginController {
 				break;
 		
 		} // << End Result Switch Case
+		
+		return;
+	
+	}
+	
+	public void updatePassword() {
+	
+		echo ("Updating Password");
+		
+		int updateResult = loginservice.updatePassword();
+		
+		switch (updateResult) {
+		
+		case 0:
+			echo ("Failed To Update Password");
+			echo ("Provided Username Not Found Inside Database");
+			break;
+		case 1:
+			echo ("Successfully Updated Password");
+			break;
+		case 2:
+			echo ("Failed To Update Password");
+			echo ("New Password Is Identical To Old Password");
+			break;
+			
+		}
 		
 		return;
 	

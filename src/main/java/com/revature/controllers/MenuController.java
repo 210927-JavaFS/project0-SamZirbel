@@ -26,6 +26,8 @@ public class MenuController {
 			echo("3 : Delete User");
 			echo("4 : Find A User");
 			echo("5 : Update Username");
+			echo("6 : Get Password");
+			echo("7 : Update Password");
 			
 			response = scanin.nextLine();
 		
@@ -44,6 +46,12 @@ public class MenuController {
 					break;
 				case "5" :
 					logincontroller.updateUsername();
+					break;
+				case "6" :
+					logincontroller.getPassword();
+					break;
+				case "7" :
+					logincontroller.updatePassword();
 					break;
 				default :
 					break;

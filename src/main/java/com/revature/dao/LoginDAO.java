@@ -13,6 +13,8 @@ public interface LoginDAO {
 	// VV SHould Only Return One User As username Is A Primary Key
 	public List<Login> findUser(String username);
 	
+	public List<Login> getPassword(String username);
+	
 	// VV Adds A New User To The Database
 	public boolean addUser(String username, String password);
 	
