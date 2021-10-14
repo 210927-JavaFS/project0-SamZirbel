@@ -15,5 +15,7 @@ public interface GardenAccountDAO {
 	public boolean approvalDecision(int account, String decision);
 	
 	public boolean deleteDeniedAccounts();
+	
+	public boolean provideTrees();
 
 }

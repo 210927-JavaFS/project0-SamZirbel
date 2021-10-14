@@ -42,6 +42,12 @@ public class GardenAccountService {
 		return gardenaccountdao.deleteDeniedAccounts();
 	
 	}
+	
+	public boolean provideTrees() {
+	
+		return gardenaccountdao.provideTrees();
+	
+	}
 
 
 }
