@@ -317,7 +317,7 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 					sql = 
 						""
 						+ "UPDATE gardenaccount "
-						+ "SET treeid = ? "
+						+ "SET treeid = ? , gardenstatus = 'Active'"
 						+ "WHERE account = ?;"
 						;
 							
@@ -358,7 +358,7 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 				+ "FROM login l "
 				+ "FULL JOIN GardenAccount g ON g.account = l.account "
 				+ "FULL JOIN tree t ON t.treeid = g.treeid "
-				+ "FULL JOIN plantingdata p ON p.plantinggroup = t.plantinggroup;"
+				+ "LEFT JOIN plantingdata p ON p.plantinggroup = t.plantinggroup;"
 				;
 				
 			Statement statement = connect.createStatement();
