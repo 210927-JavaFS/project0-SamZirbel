@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.dao.GardenAccountDAO;
 import com.revature.dao.GardenAccountDAOImpl;
+import com.revature.models.FullJoin;
 import com.revature.models.GardenAccount;
 
 public class GardenAccountService {
@@ -46,6 +47,20 @@ public class GardenAccountService {
 	public boolean provideTrees() {
 	
 		return gardenaccountdao.provideTrees();
+	
+	}
+	
+	public boolean viewAllAccounts() {
+	
+		List<FullJoin> result =  gardenaccountdao.viewAllAccounts();
+	
+		for (FullJoin fj : result) {
+		
+			System.out.println(fj);
+		
+		}
+		
+		return true;
 	
 	}
 

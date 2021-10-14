@@ -77,6 +77,7 @@ public class GardenAccountController {
 			echo ("2 : Approval / Denial Of Prospective Accounts");
 			echo ("3 : Delete Denied Accounts");
 			echo ("4 : Provide Trees To Newly Approved");
+			echo ("5 : View All Account Information");
 		
 			response = scanin.nextLine();
 			
@@ -97,6 +98,9 @@ public class GardenAccountController {
 					break;
 				case "4" :
 					gardenaccountservice.provideTrees();
+					break;
+				case "5" :
+					gardenaccountservice.viewAllAccounts();
 					break;
 			
 			}

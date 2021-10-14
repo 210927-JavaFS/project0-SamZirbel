@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.List;
 
+import com.revature.models.FullJoin;
 import com.revature.models.GardenAccount;
 
 public interface GardenAccountDAO {
@@ -17,5 +18,7 @@ public interface GardenAccountDAO {
 	public boolean deleteDeniedAccounts();
 	
 	public boolean provideTrees();
+	
+	public List<FullJoin> viewAllAccounts();
 
 }

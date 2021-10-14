@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.revature.models.FullJoin;
 import com.revature.models.GardenAccount;
-import com.revature.models.Tree;
 import com.revature.util.ConnectionUtil;
 
 public class GardenAccountDAOImpl implements GardenAccountDAO {
@@ -345,6 +345,65 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		}
 		
 		return false;
+		
+	}
+	
+	public List<FullJoin> viewAllAccounts(){
+	
+		try(Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql = 
+				""
+				+ "SELECT * "
+				+ "FROM login l "
+				+ "FULL JOIN GardenAccount g ON g.account = l.account "
+				+ "FULL JOIN tree t ON t.treeid = g.treeid "
+				+ "FULL JOIN plantingdata p ON p.plantinggroup = t.plantinggroup;"
+				;
+				
+			Statement statement = connect.createStatement();
+			
+			ResultSet result = statement.executeQuery(sql);
+			
+			List<FullJoin> query = new ArrayList<>();
+			
+			while (result.next()) {
+			
+				FullJoin fulljoin = new FullJoin(
+					
+					result.getString("username"),
+					result.getString("userpassword"),
+					result.getInt("account"),
+					result.getString("firstname"),
+					result.getString("lastname"),
+					result.getString("gardenstatus"),
+					result.getString("accounttype"),
+					result.getInt("treeid"),
+					result.getInt("branches"),
+					result.getInt("flowers"),
+					result.getInt("birdfeeders"),
+					result.getString("plantinggroup"),
+					result.getInt("yearplanted"),
+					result.getInt("monthplanted"),
+					result.getInt("dayplanted")
+					
+				);
+				
+				query.add(fulljoin);
+			
+			}
+			
+			return query;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return null;
+	
 	}
 
 
