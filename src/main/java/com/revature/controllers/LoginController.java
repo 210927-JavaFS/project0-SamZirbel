@@ -4,11 +4,49 @@ import java.util.List;
 
 import com.revature.models.Login;
 import com.revature.services.LoginService;
+import com.revature.util.queryUtil;
 
 public class LoginController {
 
 	private LoginService loginservice = new LoginService();
 	
+	private GardenAccountController gardenaccountcontroller = new GardenAccountController();
+	
+	public void createAccount() {
+	
+		echo("Welcome To Account Creation!");
+		
+		String username = queryUtil.queryUsername();
+		String password = queryUtil.queryPassword();
+		String firstname = queryUtil.queryFirstName();
+		String lastname = queryUtil.queryLastName();
+		
+		boolean success = loginservice.createAccount(username, password, firstname, lastname);
+		
+	}
+	
+	public void logIn() {
+	
+		echo("Attempting To Log In!");
+		
+		String username = queryUtil.queryUsername();
+		String password = queryUtil.queryPassword();
+		
+		boolean success = loginservice.logIn(username, password);
+		
+		if (success) {
+		
+			int account = loginservice.getAccount(username);
+		
+			gardenaccountcontroller.accountTypeFilter(account);
+		
+		}
+	
+	}
+	
+	
+	
+	/*
 	public void listAllUsers() {
 	
 		echo("These Are The Currently Registered Users: ");
@@ -188,6 +226,8 @@ public class LoginController {
 		return;
 	
 	}
+	
+	*/
 	
 	public void echo(String toPrint) {
 	

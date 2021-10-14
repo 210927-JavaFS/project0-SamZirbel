@@ -34,7 +34,8 @@ public class LoginDAOImpl implements LoginDAO {
 			
 				Login login = new Login(
 					result.getString("username"),
-					result.getString("userpassword")
+					result.getString("userpassword"),
+					result.getInt("account")
 				);
 				
 				logins.add(login);
@@ -77,7 +78,8 @@ public class LoginDAOImpl implements LoginDAO {
 			
 				Login login = new Login(
 					result.getString("username"),
-					result.getString("userpassword")
+					result.getString("userpassword"),
+					result.getInt("account")
 					);
 					
 					matchingUsers.add(login);
@@ -122,7 +124,8 @@ public class LoginDAOImpl implements LoginDAO {
 			
 				Login login = new Login(
 					username,
-					result.getString("userpassword")
+					result.getString("userpassword"),
+					result.getInt("account")
 					);
 					
 				passwordQuery.add(login);
