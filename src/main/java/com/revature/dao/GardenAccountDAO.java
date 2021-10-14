@@ -20,5 +20,9 @@ public interface GardenAccountDAO {
 	public boolean provideTrees();
 	
 	public List<FullJoin> viewAllAccounts();
-
+	
+	public boolean addBirdFeeder(int account);
+	
+	public boolean removeBirdFeeder(int account);
+	
 }

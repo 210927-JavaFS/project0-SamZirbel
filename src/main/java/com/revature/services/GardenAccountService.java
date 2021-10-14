@@ -63,6 +63,27 @@ public class GardenAccountService {
 		return true;
 	
 	}
+	
+	public boolean addBirdFeeder(int account) {
+	
+		return gardenaccountdao.addBirdFeeder(account);
+	
+	}
+	
+	public boolean removeBirdFeeder(int account) {
+	
+		return gardenaccountdao.removeBirdFeeder(account);
+	
+	}
+	
+	public boolean transferBirdFeeder(int oldAccount, int newAccount) {
+	
+		boolean one = gardenaccountdao.removeBirdFeeder(oldAccount);
+		boolean two = gardenaccountdao.addBirdFeeder(newAccount);
+	
+		return (one && two);
+	
+	}
 
 
 }

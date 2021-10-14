@@ -78,6 +78,9 @@ public class GardenAccountController {
 			echo ("3 : Delete Denied Accounts");
 			echo ("4 : Provide Trees To Newly Approved");
 			echo ("5 : View All Account Information");
+			echo ("6 : Add Another Bird Feeder To A Sponsor Account's Tree");
+			echo ("7 : Remove Bird Feeder From A Sponsor Account's Tree");
+			echo ("8 : Transfer Bird Feeders Between Two Account's Trees");
 		
 			response = scanin.nextLine();
 			
@@ -101,6 +104,19 @@ public class GardenAccountController {
 					break;
 				case "5" :
 					gardenaccountservice.viewAllAccounts();
+					break;
+				case "6" :
+					int account6 = queryUtil.queryAccount();
+					gardenaccountservice.addBirdFeeder(account6);
+					break;
+				case "7" :
+					account = queryUtil.queryAccount();
+					gardenaccountservice.removeBirdFeeder(account);
+					break;
+				case "8" :
+					account = queryUtil.queryAccount();
+					int account2 = queryUtil.queryAccount();
+					gardenaccountservice.transferBirdFeeder(account, account2);
 					break;
 			
 			}
