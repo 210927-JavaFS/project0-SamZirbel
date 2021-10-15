@@ -32,6 +32,8 @@ public class GardenAccountService {
 
 	public boolean updateAccountType(int account, String accounttype) {
 	
+		if(!checkForValidAccount(account)) { return false; }
+	
 		List<GardenAccount> accountquery = gardenaccountdao.getAccount(account);
 		
 		GardenAccount activeaccount = accountquery.get(0);
@@ -116,7 +118,32 @@ public class GardenAccountService {
 		
 	}
 	
+	public boolean checkForValidAccount(int account) {
+	
+		List<FullJoin> all = getAllAccounts();
+		
+		// VV Duplicate Check FOr New Users
+		for (FullJoin fj : all) {
+		
+			if (fj.getAccount() == account) {
+			
+			
+				return true;
+			
+			}
+		
+		}
+		
+		System.out.println("That Account Does Not Exist Please Try Again");
+		
+		return false;
+	
+	
+	}
+	
 	public boolean updateGardenStatus(int account, String decision) {
+	
+		if(!checkForValidAccount(account)) { return false; }
 	
 		FullJoin updating = getAccountFullJoin(account);
 		
@@ -236,6 +263,8 @@ public class GardenAccountService {
 	}
 	
 	public boolean deleteActiveAccount(int account) {
+	
+		if(!checkForValidAccount(account)) { return false; }
 	
 		FullJoin prompt = getAccountFullJoin(account);
 		

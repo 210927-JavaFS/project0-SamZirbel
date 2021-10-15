@@ -10,6 +10,7 @@ import com.revature.dao.GardenAccountDAO;
 import com.revature.dao.GardenAccountDAOImpl;
 import com.revature.dao.LoginDAO;
 import com.revature.dao.LoginDAOImpl;
+import com.revature.models.FullJoin;
 import com.revature.models.Login;
 import com.revature.util.encryptDecryptUtil;
 
@@ -17,12 +18,28 @@ public class LoginService {
 
 	private LoginDAO logindao = new LoginDAOImpl();
 	private GardenAccountDAO gardenaccountdao = new GardenAccountDAOImpl();
+	private GardenAccountService gardenaccountservice = new GardenAccountService();
 	
 	private static Logger Log = LoggerFactory.getLogger(LoginService.class);
 	
 	
 	
 	public boolean createAccount(String username, String password, String firstname, String lastname) {
+		
+		List<FullJoin> all = gardenaccountservice.getAllAccounts();
+		
+		// VV Duplicate Check FOr New Users
+		for (FullJoin fj : all) {
+		
+			if (fj.getUsername().equals(username)) {
+			
+				System.out.println("That Username Is Already Taken Please Try Again");
+			
+				return false;
+			
+			}
+		
+		}
 		
 		String passwordencrypted = encryptDecryptUtil.encryptDecrypt(password);
 		

@@ -151,3 +151,50 @@
 05:40:31.527 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
 05:40:32.293 [] [main] DEBUG com.revature.services.LoginService - First Name Updated
 05:40:33.823 [] [main] DEBUG com.revature.services.LoginService - Username Updated
+05:43:24.161 [] [main] DEBUG com.revature.services.LoginService - Last Name Updated
+05:43:25.771 [] [main] DEBUG com.revature.services.LoginService - Username Updated
+05:43:29.677 [] [main] INFO  com.revature.services.LoginService - Account Type Has Been Set To : Test For account : 1
+05:43:32.003 [] [main] INFO  com.revature.services.LoginService - Account Type Has Been Set To : Owner For account : 1
+05:43:33.499 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+05:43:34.282 [] [main] DEBUG com.revature.services.LoginService - Password Successfully Encrypted For Database Update
+05:43:34.282 [] [main] DEBUG com.revature.services.LoginService - Password Updated
+05:43:39.668 [] [main] DEBUG com.revature.services.LoginService - Password Successfully Encrypted For Database Update
+05:43:39.668 [] [main] DEBUG com.revature.services.LoginService - Password Updated
+05:43:41.179 [] [main] WARN  com.revature.services.LoginService - Notice That More Items Were Asked To Move Than Possible
+05:43:42.695 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+05:43:43.468 [] [main] DEBUG com.revature.services.LoginService - First Name Updated
+05:43:44.958 [] [main] DEBUG com.revature.services.LoginService - Username Updated
+05:44:03.974 [] [main] DEBUG com.revature.services.LoginService - Last Name Updated
+05:44:05.533 [] [main] DEBUG com.revature.services.LoginService - Username Updated
+05:44:09.355 [] [main] INFO  com.revature.services.LoginService - Account Type Has Been Set To : Test For account : 1
+05:44:11.649 [] [main] INFO  com.revature.services.LoginService - Account Type Has Been Set To : Owner For account : 1
+05:44:13.183 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+05:44:13.976 [] [main] DEBUG com.revature.services.LoginService - Password Successfully Encrypted For Database Update
+05:44:13.977 [] [main] DEBUG com.revature.services.LoginService - Password Updated
+05:44:42.988 [] [main] INFO  com.revature.services.LoginService - New User Created : User001
+05:49:49.436 [] [main] INFO  com.revature.services.LoginService - New User Created : User002
+05:50:11.500 [User002=User CreateD] [main] INFO  com.revature.services.LoginService - New User Created : User003
+05:50:18.764 [User002=User CreateD, User003=User CreateD] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+05:50:18.764 [User002=User CreateD, User003=User CreateD] [main] INFO  com.revature.services.LoginService - Successfully Logged In : User001
+05:50:20.293 [User002=User CreateD, User003=User CreateD] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+05:54:06.622 [] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+05:54:06.628 [] [main] INFO  com.revature.services.LoginService - Successfully Logged In : User001
+05:54:08.109 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+05:55:07.491 [] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+05:55:13.520 [] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+05:55:13.521 [] [main] INFO  com.revature.services.LoginService - Successfully Logged In : User001
+05:55:15.026 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+05:55:37.191 [] [main] DEBUG com.revature.services.LoginService - Trees Have Been Populated
+05:57:37.235 [] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+05:57:37.240 [] [main] INFO  com.revature.services.LoginService - Successfully Logged In : User001
+05:57:38.716 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+06:00:27.035 [] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+06:00:27.040 [] [main] INFO  com.revature.services.LoginService - Successfully Logged In : User001
+06:00:28.564 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+06:03:11.233 [] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+06:03:11.237 [] [main] INFO  com.revature.services.LoginService - Successfully Logged In : User001
+06:03:12.714 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
+06:03:50.541 [] [main] WARN  com.revature.services.LoginService - Notice That More Items Were Asked To Move Than Possible
+06:05:13.087 [] [main] DEBUG com.revature.services.LoginService - Password Decripted For Login Comparison
+06:05:13.092 [] [main] INFO  com.revature.services.LoginService - Successfully Logged In : User001
+06:05:14.548 [] [main] DEBUG com.revature.services.LoginService - Account Type Query Returning
