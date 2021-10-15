@@ -127,6 +127,71 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 	
 	}
 	
+	@Override
+	public boolean updateAccountType(FullJoin fulljoin) {
+
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE gardenaccount "
+				+ "SET accounttype = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, fulljoin.getAccounttype());
+			
+			preparedstatement.setInt(2, fulljoin.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+	
+	}
+	
+	@Override
+	public boolean updateGardenStatus(FullJoin fulljoin) {
+	
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE gardenaccount "
+				+ "SET gardenstatus = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, fulljoin.getGardenstatus());
+			
+			preparedstatement.setInt(2, fulljoin.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+	
+	}
 
 	@Override
 	public boolean updateUsername(FullJoin fulljoin) {
@@ -293,6 +358,38 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		
 	}
 	
+	public boolean updateTreeId(FullJoin fulljoin) {
+
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE gardenaccount "
+				+ "SET treeid = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setInt(1, fulljoin.getTreeid());
+			
+			preparedstatement.setInt(2, fulljoin.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+	
+	}
+	
 	public List<GardenAccount> getPendingAccounts() {
 	
 		try (Connection connect = ConnectionUtil.getConnection()) {
@@ -338,37 +435,19 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 	
 	}
 	
-	public boolean approvalDecision(int account, String decision) {
+	public boolean removeGardenAccountRow(int account) {
 	
 		try (Connection connect = ConnectionUtil.getConnection()) {
 		
 			String sql =
 				""
-				+ "UPDATE gardenaccount "
-				+ "SET gardenstatus = ?, accounttype = ? "
+				+ "DELETE FROM gardenaccount "
 				+ "WHERE account = ?;"
 				;
 				
 			PreparedStatement preparedstatement = connect.prepareStatement(sql);
 			
-			preparedstatement.setString(1, decision);
-			
-			String type = "";
-			
-			if (decision.equals("Approve")) {
-			
-				type = "Sponsor";
-				
-			}
-			else if (decision.equals("Deny")) {
-			
-				type = "Denied";
-			
-			}
-			
-			preparedstatement.setString(2, type);
-			
-			preparedstatement.setInt(3, account);
+			preparedstatement.setInt(1, account);
 			
 			preparedstatement.execute();
 			
@@ -378,63 +457,28 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		catch (SQLException e) {
 		
 			e.printStackTrace();
-			
+		
 		}
 		
 		return false;
 	
 	}
 	
-	public boolean deleteDeniedAccounts() {
-	
+	public boolean removeLoginRow(int account) {
+
 		try (Connection connect = ConnectionUtil.getConnection()) {
 		
 			String sql =
 				""
-				+ "SELECT account "
-				+ "FROM gardenaccount "
-				+ "WHERE gardenstatus = 'Denied';"
+				+ "DELETE FROM login "
+				+ "WHERE account = ?;"
 				;
 				
-			Statement statement = connect.createStatement();
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
 			
-			ResultSet result = statement.executeQuery(sql);
+			preparedstatement.setInt(1, account);
 			
-			List<Integer> accounts = new ArrayList<>();
-
-			while (result.next()) {
-			
-				Integer query = (Integer) result.getInt("account");
-						
-					accounts.add(query);
-			
-			}
-			
-			for (Integer i : accounts) {
-			
-				sql = ""
-					+ "DELETE FROM login "
-					+ "WHERE account = ?;"
-					;
-					
-				PreparedStatement preparedstatement = connect.prepareStatement(sql);
-				
-				preparedstatement.setInt(1, i);
-				
-				preparedstatement.execute();
-				
-				sql = ""
-					+ "DELETE FROM gardenaccount "
-					+ "WHERE account = ?;"
-					;
-					
-				preparedstatement = connect.prepareStatement(sql);
-				
-				preparedstatement.setInt(1, i);
-				
-				preparedstatement.execute();
-			
-			}
+			preparedstatement.execute();
 			
 			return true;
 		
@@ -448,92 +492,25 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		return false;
 	
 	}
-
+	
 	@Override
-	public boolean provideTrees() {
-		// TODO Auto-generated method stub
+	public boolean removeTreeRow(int treeid) {
+	
 		try (Connection connect = ConnectionUtil.getConnection()) {
-		
+			
 			String sql =
-					""
-					+ "SELECT account "
-					+ "FROM gardenaccount "
-					+ "WHERE gardenstatus = 'Approved';"
-					;
-					
-				Statement statement = connect.createStatement();
+				""
+				+ "DELETE FROM tree "
+				+ "WHERE treeid = ?;"
+				;
 				
-				ResultSet result = statement.executeQuery(sql);
-				
-				List<Integer> accounts = new ArrayList<>();
-
-				while (result.next()) {
-				
-					Integer query = (Integer) result.getInt("account");
-							
-						accounts.add(query);
-				
-				}
-				
-			for (Integer i : accounts) {
-		
-		
-				sql = 
-					""
-					+ "INSERT INTO tree (branches, flowers, birdfeeders, plantinggroup) "
-					+ "Values (5, 0, 1, ?)"
-					+ "RETURNING treeid;"
-					;
-					
-				PreparedStatement preparedstatement = connect.prepareStatement(sql);
-					
-				Random rn = new Random();
-					
-				int group = rn.nextInt(10) + 1;
-					
-				preparedstatement.setInt(1, group);
-					
-				ResultSet result2 = preparedstatement.executeQuery();
-				
-				List<Integer> queries = new ArrayList<>();
-				
-				while (result2.next()) {
-				
-					Integer treeid = (Integer) result2.getInt("treeid");
-						/*
-						result2.getInt("treeid"),
-						result2.getInt("branches"),
-						result2.getInt("flowers"),
-						result2.getInt("birdfeeders"),
-						result2.getString("plantinggroup")
-					
-					);
-					*/
-					
-					queries.add(treeid);
-					
-					sql = 
-						""
-						+ "UPDATE gardenaccount "
-						+ "SET treeid = ? , gardenstatus = 'Active'"
-						+ "WHERE account = ?;"
-						;
-							
-					preparedstatement = connect.prepareStatement(sql);
-						
-					preparedstatement.setInt(1, treeid);
-					preparedstatement.setInt(2, i);
-					
-					preparedstatement.execute();
-					
-				
-				}
-				
-			}
-				
-				
-			return true;	
-				
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setInt(1, treeid);
+			
+			preparedstatement.execute();
+			
+			return true;
 		
 		}
 		catch (SQLException e) {
@@ -543,7 +520,50 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		}
 		
 		return false;
+	
+	}
+	
+	@Override
+	public int createTree() {
+	
+		try (Connection connect = ConnectionUtil.getConnection()) {
 		
+			String sql = 
+				""
+				+ "INSERT INTO tree (branches, flowers, birdfeeders, plantinggroup) "
+				+ "VALUES (?, 0, 1, ?)"
+				+ "RETURNING treeid;"
+				;
+				
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			Random rn = new Random();
+				
+			int treegroup = rn.nextInt(10) + 1;
+			
+			int branchcount = rn.nextInt(100) + 10;
+			
+			preparedstatement.setInt(1, branchcount);
+		
+			preparedstatement.setInt(2, treegroup);
+			
+			ResultSet result = preparedstatement.executeQuery();
+			
+			result.next();
+			
+			Integer treeid = (Integer) result.getInt("treeid");
+					
+			return treeid;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return 0;
+	
 	}
 	
 	public List<FullJoin> grabAllAccounts(){
@@ -666,101 +686,6 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 	
 	}
 
-	public boolean addBirdFeeder(int account) {
-	
-		try (Connection connect = ConnectionUtil.getConnection()) {
-		
-			String sql = 
-				""
-				+ "SELECT treeid "
-				+ "FROM gardenAccount "
-				+ "WHERE account = ?;"
-				;
-				
-			PreparedStatement preparedstatement = connect.prepareStatement(sql);
-			
-			preparedstatement.setInt(1, account);
-			
-			ResultSet result = preparedstatement.executeQuery();
-			
-			result.next();
-			
-			Integer treeid = (Integer) result.getInt("treeid");
-			
-			sql = 
-				""
-				+ "UPDATE tree "
-				+ "SET birdfeeders = birdfeeders + 1 "
-				+ "WHERE treeid = ?;"
-				;
-				
-			preparedstatement = connect.prepareStatement(sql);
-			
-			preparedstatement.setInt(1, treeid);
-			
-			preparedstatement.execute();
-			
-			return true;
-		
-		}
-		catch (SQLException e){
-		
-			e.printStackTrace();
-		
-		}
-		
-		return false;
-	
-	}
-	
-	public boolean removeBirdFeeder(int account) {
-	
-		try (Connection connect = ConnectionUtil.getConnection()) {
-
-			String sql = 
-				""
-				+ "SELECT treeid "
-				+ "FROM gardenAccount "
-				+ "WHERE account = ?;"
-				;
-				
-			PreparedStatement preparedstatement = connect.prepareStatement(sql);
-			
-			preparedstatement.setInt(1, account);
-			
-			ResultSet result = preparedstatement.executeQuery();
-			
-			result.next();
-			
-			Integer treeid = (Integer) result.getInt("treeid");
-			
-			sql = 
-				""
-				+ "UPDATE tree "
-				+ "SET birdfeeders = birdfeeders - 1 "
-				+ "WHERE treeid = ?;"
-				;
-				
-			preparedstatement = connect.prepareStatement(sql);
-			
-			preparedstatement.setInt(1, treeid);
-			
-			preparedstatement.execute();
-			
-			return true;
-		
-		}
-		catch (SQLException e) {
-		
-			e.printStackTrace();
-		
-		}
-		
-		return false;
-	
-	}
-
-	
 
 
 }

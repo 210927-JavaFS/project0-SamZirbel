@@ -95,6 +95,26 @@ public class GardenAccountService {
 		
 	}
 	
+	public boolean updateGardenStatus(int account, String decision) {
+	
+		FullJoin updating = getAccountFullJoin(account);
+		
+		String newtype = (decision.equals("Approved")) ? "Sponsor" : "Denied";
+		
+		updating.setAccounttype(newtype);
+		
+		String newstatus = (newtype.equals("Sponsor")) ? "Approved" : "Denied";
+		
+		updating.setGardenstatus(newstatus);
+				
+		boolean one = gardenaccountdao.updateAccountType(updating);
+		boolean two = gardenaccountdao.updateGardenStatus(updating);
+		
+		return (one && two);
+		
+	
+	}
+	
 	public boolean addBirdFeeders(FullJoin fulljoin, int feeders) {
 	
 		int currentfeeders = fulljoin.getBirdfeeders();
@@ -130,10 +150,10 @@ public class GardenAccountService {
 	
 	public boolean transferManyBirdFeeders(FullJoin from, FullJoin to, int feeders) {
 	
-		int feedersinfrom = from.getBirdfeeders();
+		int feedersfrom = from.getBirdfeeders();
 		
-		int transferring = (feedersinfrom - feeders >= 0) ?
-			feedersinfrom - feeders : feedersinfrom;
+		int transferring = (feedersfrom - feeders >= 0) ?
+			feeders : feedersfrom;
 			
 		addBirdFeeders(to, transferring);
 		removeBirdFeeders(from, transferring);
@@ -142,7 +162,13 @@ public class GardenAccountService {
 		
 	}
 	
+	public int countPendingAccounts() {
 	
+		List<GardenAccount> pendings = gardenaccountdao.getPendingAccounts();
+		
+		return pendings.size();
+		
+	}
 	
 	public void viewPendingAccounts() {
 	
@@ -156,23 +182,81 @@ public class GardenAccountService {
 	
 	}
 	
-	public boolean approvalDecision(int account, String decision) {
+	public boolean deleteDeniedAccounts() {
 	
-		return gardenaccountdao.approvalDecision(account, decision);
+		List<FullJoin> all = gardenaccountdao.grabAllAccounts();
+		
+		int accountnumber;
+		
+		boolean one = true;
+		boolean two = true;
+		
+		for (FullJoin fj : all) {
+		
+			if (fj.getGardenstatus().equals("Denied")) {
+			
+				accountnumber = fj.getAccount();
+				
+				one = gardenaccountdao.removeLoginRow(accountnumber);
+				two = gardenaccountdao.removeGardenAccountRow(accountnumber);
+			
+			}
+		
+		}
 	
+		return (one && two);
 	
 	}
 	
-	public boolean deleteDeniedAccounts() {
+	public boolean deleteActiveAccount(int account) {
 	
-		return gardenaccountdao.deleteDeniedAccounts();
+		FullJoin prompt = getAccountFullJoin(account);
+		
+		int treeid = 0;
+		
+		if (!prompt.getAccounttype().equals("Denied")) {
+		
+			treeid = prompt.getTreeid();
+		
+			gardenaccountdao.removeLoginRow(account);
+			
+			gardenaccountdao.removeGardenAccountRow(account);
+			
+			gardenaccountdao.removeTreeRow(treeid);
+			
+			return true;
+		
+		}
+		
+		return false;
 	
 	}
 	
 	public boolean provideTrees() {
+
+		List<FullJoin> all = gardenaccountdao.grabAllAccounts();
+		
+		boolean one = true;
+		
+		int treeid = 0;
+		
+		for (FullJoin fj : all) {
+		
+			System.out.println(fj.getGardenstatus());
+		
+			if (fj.getGardenstatus().equals("Approved")) {
+			
+				treeid = gardenaccountdao.createTree();
+				
+				fj.setTreeid(treeid);
+				
+				one = gardenaccountdao.updateTreeId(fj);
+			
+			}
+		
+		}
 	
-		return gardenaccountdao.provideTrees();
-	
+		return one;
 	}
 	
 	public boolean viewAllAccounts() {
@@ -188,29 +272,5 @@ public class GardenAccountService {
 		return true;
 	
 	}
-	
-	public boolean addBirdFeeder(int account) {
-	
-		return gardenaccountdao.addBirdFeeder(account);
-	
-	}
-	
-	public boolean removeBirdFeeder(int account) {
-	
-		return gardenaccountdao.removeBirdFeeder(account);
-	
-	}
-	
-	public boolean transferBirdFeeder(int oldAccount, int newAccount) {
-	
-		boolean one = gardenaccountdao.removeBirdFeeder(oldAccount);
-		boolean two = gardenaccountdao.addBirdFeeder(newAccount);
-	
-		return (one && two);
-	
-	}
-	
-	
-
 
 }

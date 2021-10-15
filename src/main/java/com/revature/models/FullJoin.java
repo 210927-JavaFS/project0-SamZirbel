@@ -264,11 +264,23 @@ public class FullJoin {
 
 	@Override
 	public String toString() {
-		return "FullJoin [username=" + username + ", userpassword=" + userpassword + ", account=" + account
-				+ ", firstname=" + firstname + ", lastname=" + lastname + ", gardenstatus=" + gardenstatus
-				+ ", accounttype=" + accounttype + ", treeid=" + treeid + ", branches=" + branches + ", flowers="
-				+ flowers + ", birdfeeders=" + birdfeeders + ", plantinggroup=" + plantinggroup + ", yearplanted="
-				+ yearplanted + ", monthplanted=" + monthplanted + ", dayplanted=" + dayplanted + "]";
+	
+		return "Account " + account + " >> ["
+			+ "uername : " + username + " | "
+			+ "password : " + userpassword + " | "
+			+ "account : " + account + " | "
+			+ "firstname : " + firstname + " | "
+			+ "lastname : " + lastname + " | "
+			+ "gardenstatus : " + gardenstatus + "]"
+			+ "\n\t  [accounttype : " + accounttype + " | "
+			+ "treeid : " + treeid + " | "
+			+ "branches : " + branches + " | "
+			+ "flowers : " + flowers + "]"
+			+ "\n\t  [birdfeeders : " + birdfeeders + " | "
+			+ "plantinggroup : " + plantinggroup + " | "
+			+ "yearplanted : " + yearplanted + " | "
+			+ "monthplanted : " + monthplanted + " | "
+			+ "dayplanted : " + dayplanted + "]";
 	}
 	
 	public String viewAccountCredentials() {

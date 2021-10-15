@@ -1,11 +1,7 @@
 package com.revature.controllers;
 
-import java.util.List;
-
-import com.revature.models.Login;
 import com.revature.services.LoginService;
 import com.revature.util.promptUtil;
-import com.revature.util.queryUtil;
 
 public class LoginController {
 

@@ -46,6 +46,21 @@ public class promptUtil {
 	
 	}
 	
+	public static void sponsorUpdateAccountPrompt(FullJoin fulljoin) {
+		
+		echo ("");
+		echo ("Hello Sponsor, Welcome To Your Account Update Page");
+		
+		echo ("Account Number : " + fulljoin.getAccount());
+		
+		echo (fulljoin.viewAccountCredentials());
+		
+		echo("");
+		
+		return;
+	
+	}
+	
 	public static String updateUsernamePrompt() {
 	
 		echo ("What Would You Like To Set The Username As?");
@@ -182,6 +197,20 @@ public class promptUtil {
 			
 		}
 		
+		echo("");
+		
+		return;
+	
+	}
+	
+	public static void sponsorManageBirdFeedersPrompt(FullJoin fulljoin) {
+		
+		echo ("");
+		echo ("What Would You Like To Know About / Do With Your Tree?");
+		
+		echo ("Your Account : " + fulljoin.getAccount());
+		echo (fulljoin.viewSponsoredTreeInfo());
+			
 		echo("");
 		
 		return;

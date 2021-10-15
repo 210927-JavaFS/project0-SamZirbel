@@ -2,8 +2,6 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
-import com.revature.subservices.UserCredentialSubservice;
-
 public class MenuController {
 
 	Scanner scanin = new Scanner(System.in);
