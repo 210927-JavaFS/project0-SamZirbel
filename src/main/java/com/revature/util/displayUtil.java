@@ -1,7 +1,6 @@
 package com.revature.util;
 
 import java.util.List;
-import java.util.PriorityQueue;
 
 import com.revature.models.FullJoin;
 

@@ -1,9 +1,6 @@
 package com.revature.util;
 
-import java.util.List;
 import java.util.Scanner;
-
-import com.revature.models.FullJoin;
 
 public class queryUtil {
 
