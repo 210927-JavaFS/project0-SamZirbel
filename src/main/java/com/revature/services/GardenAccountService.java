@@ -2,6 +2,9 @@ package com.revature.services;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.revature.dao.GardenAccountDAO;
 import com.revature.dao.GardenAccountDAOImpl;
 import com.revature.models.FullJoin;
@@ -12,9 +15,15 @@ public class GardenAccountService {
 
 	private GardenAccountDAO gardenaccountdao = new GardenAccountDAOImpl();
 	
+	private static Logger Log = LoggerFactory.getLogger(LoginService.class);
+	
+	//MDC.put("GardenAccountService", "1");
+	
 	public String getAccountType(int account) {
 	
 		List<GardenAccount> accountquery = gardenaccountdao.getAccount(account);
+		
+		Log.debug("Account Type Query Returning");
 		
 		return accountquery.get(0).getAccounttype();
 	
@@ -30,6 +39,8 @@ public class GardenAccountService {
 		activeaccount.setAccounttype(accounttype);
 		
 		System.out.println(activeaccount.getAccounttype());
+		
+		Log.info("Account Type Has Been Set To : " + accounttype + " For account : " + account);
 		
 		return gardenaccountdao.updateAccountType(activeaccount);
 	
@@ -67,6 +78,8 @@ public class GardenAccountService {
 	
 	public boolean updateUsername(FullJoin fulljoin) {
 	
+		Log.debug("Username Updated");
+	
 		return gardenaccountdao.updateUsername(fulljoin);
 	
 	}
@@ -77,7 +90,11 @@ public class GardenAccountService {
 		
 		String passwordencrypted = encryptDecryptUtil.encryptDecrypt(passworddecrypted);
 		
+		Log.debug("Password Successfully Encrypted For Database Update");
+		
 		fulljoin.setUserpassword(passwordencrypted);
+	
+		Log.debug("Password Updated");
 	
 		return gardenaccountdao.updatePassword(fulljoin);
 		
@@ -85,11 +102,15 @@ public class GardenAccountService {
 	
 	public boolean updateFirstName(FullJoin fulljoin) {
 	
+		Log.debug("First Name Updated");
+	
 		return gardenaccountdao.updateFirstName(fulljoin);
 		
 	}
 	
 	public boolean updateLastName(FullJoin fulljoin) {
+	
+		Log.debug("Last Name Updated");
 	
 		return gardenaccountdao.updateLastName(fulljoin);
 		
@@ -109,6 +130,8 @@ public class GardenAccountService {
 				
 		boolean one = gardenaccountdao.updateAccountType(updating);
 		boolean two = gardenaccountdao.updateGardenStatus(updating);
+		
+		Log.debug("Garden Status Updated For Account : " + account + " To : " + newstatus);
 		
 		return (one && two);
 		
@@ -132,6 +155,8 @@ public class GardenAccountService {
 		int currentfeeders = fulljoin.getBirdfeeders();
 		
 		if (feeders >= currentfeeders) {
+		
+			Log.warn("Notice That More Items Were Asked To Move Than Possible");
 		
 			currentfeeders = 0;
 		
@@ -200,6 +225,8 @@ public class GardenAccountService {
 				one = gardenaccountdao.removeLoginRow(accountnumber);
 				two = gardenaccountdao.removeGardenAccountRow(accountnumber);
 			
+				Log.debug("Account : " + accountnumber + " Deleted");
+			
 			}
 		
 		}
@@ -223,6 +250,8 @@ public class GardenAccountService {
 			gardenaccountdao.removeGardenAccountRow(account);
 			
 			gardenaccountdao.removeTreeRow(treeid);
+			
+			Log.debug("Account : " + account + " Deleted");
 			
 			return true;
 		
@@ -255,6 +284,8 @@ public class GardenAccountService {
 			}
 		
 		}
+		
+		Log.debug("Trees Have Been Populated");
 	
 		return one;
 	}
