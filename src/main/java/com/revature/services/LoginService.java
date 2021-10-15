@@ -13,6 +13,7 @@ import com.revature.subservices.QueryPasswordSubservice;
 import com.revature.subservices.QueryUsernameSubservice;
 import com.revature.subservices.UpdateUsernameQuerySubservice;
 import com.revature.subservices.UserCredentialSubservice;
+import com.revature.util.encryptDecryptUtil;
 
 public class LoginService {
 
@@ -22,8 +23,10 @@ public class LoginService {
 	
 	public boolean createAccount(String username, String password, String firstname, String lastname) {
 		
+		String passwordencrypted = encryptDecryptUtil.encryptDecrypt(password);
+		
 		boolean one = gardenaccountdao.createAccount(firstname, lastname);
-		boolean two = logindao.addUser(username, password);
+		boolean two = logindao.addUser(username, passwordencrypted);
 		
 		return (one && two);
 				
@@ -38,7 +41,18 @@ public class LoginService {
 			return false;
 			
 		}
-		else if (userLookup.get(0).getPassword().equals(password)) {
+		
+		Login user = userLookup.get(0);
+		
+		String passwordencrypted = user.getPassword();
+		
+		System.out.println(passwordencrypted);
+		
+		String passworddecrypted = encryptDecryptUtil.encryptDecrypt(passwordencrypted);
+		
+		System.out.println(passworddecrypted);
+		
+		if (passworddecrypted.equals(password)) {
 		
 			return true;
 			

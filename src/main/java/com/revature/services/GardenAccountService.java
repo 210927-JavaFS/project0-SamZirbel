@@ -6,6 +6,7 @@ import com.revature.dao.GardenAccountDAO;
 import com.revature.dao.GardenAccountDAOImpl;
 import com.revature.models.FullJoin;
 import com.revature.models.GardenAccount;
+import com.revature.util.encryptDecryptUtil;
 
 public class GardenAccountService {
 
@@ -38,7 +39,21 @@ public class GardenAccountService {
 	
 		List<FullJoin> accountquery = gardenaccountdao.viewSingleAccount(account);
 		
-		return (accountquery.size() >= 1) ? accountquery.get(0) : null;
+		FullJoin result = null;
+		
+		if (accountquery.size() >= 1) {
+		
+			result = accountquery.get(0);
+			
+			String encryptedpassword = result.getUserpassword();
+			
+			String decryptedpassword = encryptDecryptUtil.encryptDecrypt(encryptedpassword);
+			
+			result.setUserpassword(decryptedpassword);
+		
+		}
+		
+		return result;
 	
 	}
 	
@@ -49,6 +64,12 @@ public class GardenAccountService {
 	}
 	
 	public boolean updatePassword(FullJoin fulljoin) {
+	
+		String passworddecrypted = fulljoin.getUserpassword();
+		
+		String passwordencrypted = encryptDecryptUtil.encryptDecrypt(passworddecrypted);
+		
+		fulljoin.setUserpassword(passwordencrypted);
 	
 		return gardenaccountdao.updatePassword(fulljoin);
 		
