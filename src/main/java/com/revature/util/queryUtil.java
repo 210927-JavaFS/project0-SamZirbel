@@ -8,8 +8,6 @@ public class queryUtil {
 	
 	public static String queryUsername() {
 	
-		echo("What Is Your Desired Username?");
-		
 		String answer = scanin.nextLine();
 		
 		return answer;
@@ -18,8 +16,6 @@ public class queryUtil {
 	
 	public static String queryPassword() {
 	
-		echo("What Is Your Desired Password?");
-		
 		String answer = scanin.nextLine();
 		
 		return answer;
@@ -28,8 +24,6 @@ public class queryUtil {
 	
 	public static String queryFirstName() {
 	
-		echo("What Is Your First Name?");
-		
 		String answer = scanin.nextLine();
 		
 		return answer;
@@ -38,8 +32,6 @@ public class queryUtil {
 	
 	public static String queryLastName() {
 	
-		echo("What Is Your Last Name?");
-		
 		String answer = scanin.nextLine();
 		
 		return answer;
@@ -48,8 +40,6 @@ public class queryUtil {
 	
 	public static int queryAccount() {
 	
-		echo("What Account Would You Like?");
-		
 		String answer = scanin.nextLine();
 	
 		int result = Integer.parseInt(answer);
@@ -67,6 +57,23 @@ public class queryUtil {
 		while (!answer.equals("Approved") && !answer.equals("Denied")) {
 		
 			echo ("Please Respond Approved Or Denied");
+			
+			answer = scanin.nextLine();
+		
+		}
+		
+		return answer;
+	
+	}
+	
+	public static String queryAccountType() {
+	
+		String answer = "A";
+		
+		while (!answer.equals("Owner") && !answer.equals("Employee") 
+			&& !answer.equals("Sponsor") && !answer.equals("Cancel")){
+		
+			echo ("Plase Respond With : Owner, Employee, Sponsor, or Cancel");
 			
 			answer = scanin.nextLine();
 		

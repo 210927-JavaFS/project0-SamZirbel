@@ -95,6 +95,171 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 	
 	}
 	
+	public boolean updateAccountType(GardenAccount gardenaccount) {
+	
+		try (Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql =
+				""
+				+ "UPDATE gardenaccount "
+				+ "SET accounttype = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, gardenaccount.getAccounttype());
+			
+			preparedstatement.setInt(2, gardenaccount.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+	
+	}
+	
+
+	@Override
+	public boolean updateUsername(FullJoin fulljoin) {
+
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE login "
+				+ "SET username = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, fulljoin.getUsername());
+			
+			preparedstatement.setInt(2, fulljoin.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+		
+	}
+
+	@Override
+	public boolean updatePassword(FullJoin fulljoin) {
+
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE login "
+				+ "SET userpassword = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, fulljoin.getUserpassword());
+			
+			preparedstatement.setInt(2, fulljoin.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+		
+	}
+
+	@Override
+	public boolean updateFirstName(FullJoin fulljoin) {
+		
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE gardenaccount "
+				+ "SET firstname = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, fulljoin.getFirstname());
+			
+			preparedstatement.setInt(2, fulljoin.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+		
+	}
+
+	@Override
+	public boolean updateLastName(FullJoin fulljoin) {
+
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE gardenaccount "
+				+ "SET lastname = ? "
+				+ "WHERE account = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setString(1, fulljoin.getLastname());
+			
+			preparedstatement.setInt(2, fulljoin.getAccount());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+		
+	}
+	
 	public List<GardenAccount> getPendingAccounts() {
 	
 		try (Connection connect = ConnectionUtil.getConnection()) {
@@ -406,6 +571,68 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 	
 	}
 
+	public List<FullJoin> viewSingleAccount(int account) {
+	
+
+		try(Connection connect = ConnectionUtil.getConnection()) {
+		
+			String sql = 
+				""
+				+ "SELECT * "
+				+ "FROM login l "
+				+ "FULL JOIN GardenAccount g ON g.account = l.account "
+				+ "FULL JOIN tree t ON t.treeid = g.treeid "
+				+ "LEFT JOIN plantingdata p ON p.plantinggroup = t.plantinggroup "
+				+ "WHERE l.account = ?;"
+				;
+				
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setInt(1, account);
+			
+			ResultSet result = preparedstatement.executeQuery();
+			
+			List<FullJoin> query = new ArrayList<>();
+			
+			while (result.next()) {
+			
+				FullJoin fulljoin = new FullJoin(
+					
+					result.getString("username"),
+					result.getString("userpassword"),
+					result.getInt("account"),
+					result.getString("firstname"),
+					result.getString("lastname"),
+					result.getString("gardenstatus"),
+					result.getString("accounttype"),
+					result.getInt("treeid"),
+					result.getInt("branches"),
+					result.getInt("flowers"),
+					result.getInt("birdfeeders"),
+					result.getString("plantinggroup"),
+					result.getInt("yearplanted"),
+					result.getInt("monthplanted"),
+					result.getInt("dayplanted")
+					
+				);
+				
+				query.add(fulljoin);
+			
+			}
+			
+			return query;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return null;
+	
+	}
+
 	public boolean addBirdFeeder(int account) {
 	
 		try (Connection connect = ConnectionUtil.getConnection()) {
@@ -499,6 +726,7 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		return false;
 	
 	}
+
 	
 
 

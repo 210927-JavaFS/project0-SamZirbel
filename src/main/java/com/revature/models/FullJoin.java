@@ -271,6 +271,15 @@ public class FullJoin {
 				+ yearplanted + ", monthplanted=" + monthplanted + ", dayplanted=" + dayplanted + "]";
 	}
 	
+	public String viewAccountCredentials() {
+	
+		return "Account " + account + " Credentials >> ["
+			+ "username : " + username + " | "
+			+ "password : " + userpassword + " | "
+			+ "firstname : " + firstname + " | "
+			+ "lastname : " + lastname + "]";
+	
+	}
 	
 
 }

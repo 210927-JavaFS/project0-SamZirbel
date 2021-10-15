@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.revature.models.Login;
 import com.revature.services.LoginService;
+import com.revature.util.promptUtil;
 import com.revature.util.queryUtil;
 
 public class LoginController {
@@ -12,16 +13,18 @@ public class LoginController {
 	
 	private GardenAccountController gardenaccountcontroller = new GardenAccountController();
 	
-	public void createAccount() {
+	public boolean createAccount() {
 	
 		echo("Welcome To Account Creation!");
 		
-		String username = queryUtil.queryUsername();
-		String password = queryUtil.queryPassword();
-		String firstname = queryUtil.queryFirstName();
-		String lastname = queryUtil.queryLastName();
+		String username = promptUtil.setUsernamePrompt();
+		String password = promptUtil.setPasswordPrompt();
+		String firstname = promptUtil.setFirstNamePrompt();
+		String lastname = promptUtil.setLastNamePrompt();
 		
 		boolean success = loginservice.createAccount(username, password, firstname, lastname);
+		
+		return success;
 		
 	}
 	
@@ -29,8 +32,8 @@ public class LoginController {
 	
 		echo("Attempting To Log In!");
 		
-		String username = queryUtil.queryUsername();
-		String password = queryUtil.queryPassword();
+		String username = promptUtil.loginUsernamePrompt();
+		String password = promptUtil.loginPasswordPrompt();
 		
 		boolean success = loginservice.logIn(username, password);
 		

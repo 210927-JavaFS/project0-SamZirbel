@@ -11,6 +11,16 @@ public interface GardenAccountDAO {
 	
 	public List<GardenAccount> getAccount(int account);
 	
+	public boolean updateAccountType(GardenAccount gardenaccount);
+	
+	public boolean updateUsername(FullJoin fulljoin);
+	
+	public boolean updatePassword(FullJoin fulljoin);
+	
+	public boolean updateFirstName(FullJoin fulljoin);
+	
+	public boolean updateLastName(FullJoin fulljoin);
+	
 	public List<GardenAccount> getPendingAccounts();
 	
 	public boolean approvalDecision(int account, String decision);
@@ -20,6 +30,8 @@ public interface GardenAccountDAO {
 	public boolean provideTrees();
 	
 	public List<FullJoin> viewAllAccounts();
+	
+	public List<FullJoin> viewSingleAccount(int account);
 	
 	public boolean addBirdFeeder(int account);
 	

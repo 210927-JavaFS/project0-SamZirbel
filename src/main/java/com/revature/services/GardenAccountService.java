@@ -19,6 +19,55 @@ public class GardenAccountService {
 	
 	}
 	
+
+	public boolean updateAccountType(int account, String accounttype) {
+	
+		List<GardenAccount> accountquery = gardenaccountdao.getAccount(account);
+		
+		GardenAccount activeaccount = accountquery.get(0);
+		
+		activeaccount.setAccounttype(accounttype);
+		
+		System.out.println(activeaccount.getAccounttype());
+		
+		return gardenaccountdao.updateAccountType(activeaccount);
+	
+	}
+	
+	public FullJoin getAccountFullJoin(int account){
+	
+		List<FullJoin> accountquery = gardenaccountdao.viewSingleAccount(account);
+		
+		return (accountquery.size() >= 1) ? accountquery.get(0) : null;
+	
+	}
+	
+	public boolean updateUsername(FullJoin fulljoin) {
+	
+		return gardenaccountdao.updateUsername(fulljoin);
+	
+	}
+	
+	public boolean updatePassword(FullJoin fulljoin) {
+	
+		return gardenaccountdao.updatePassword(fulljoin);
+		
+	}
+	
+	public boolean updateFirstName(FullJoin fulljoin) {
+	
+		return gardenaccountdao.updateFirstName(fulljoin);
+		
+	}
+	
+	public boolean updateLastName(FullJoin fulljoin) {
+	
+		return gardenaccountdao.updateLastName(fulljoin);
+		
+	}
+	
+	
+	
 	public void viewPendingAccounts() {
 	
 		List<GardenAccount> pendings = gardenaccountdao.getPendingAccounts();
@@ -84,6 +133,8 @@ public class GardenAccountService {
 		return (one && two);
 	
 	}
+	
+	
 
 
 }
