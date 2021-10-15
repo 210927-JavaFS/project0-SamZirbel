@@ -281,5 +281,16 @@ public class FullJoin {
 	
 	}
 	
+	public String viewSponsoredTreeInfo() {
+	
+		return "Account " + account + " Tree Info >> ["
+			+ "treeid : " + treeid + " | "
+			+ "flowers : " + flowers + " | "
+			+ "birdfeeders : " + birdfeeders + "]"
+			+ " >> " + "Planted On : "
+			+ monthplanted + "/" + dayplanted + " Of " + yearplanted;
+	
+	}
+	
 
 }

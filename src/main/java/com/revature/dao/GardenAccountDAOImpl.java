@@ -260,6 +260,39 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		
 	}
 	
+	@Override
+	public boolean updateBirdFeeders(FullJoin fulljoin) {
+
+		try (Connection connect = ConnectionUtil.getConnection()) {
+			
+			String sql =
+				""
+				+ "UPDATE tree "
+				+ "SET birdfeeders = ? "
+				+ "WHERE treeid = ?;"
+				;
+			
+			PreparedStatement preparedstatement = connect.prepareStatement(sql);
+			
+			preparedstatement.setInt(1, fulljoin.getBirdfeeders());
+			
+			preparedstatement.setInt(2, fulljoin.getTreeid());
+			
+			preparedstatement.execute();
+			
+			return true;
+		
+		}
+		catch (SQLException e) {
+		
+			e.printStackTrace();
+		
+		}
+		
+		return false;
+		
+	}
+	
 	public List<GardenAccount> getPendingAccounts() {
 	
 		try (Connection connect = ConnectionUtil.getConnection()) {
@@ -513,7 +546,7 @@ public class GardenAccountDAOImpl implements GardenAccountDAO {
 		
 	}
 	
-	public List<FullJoin> viewAllAccounts(){
+	public List<FullJoin> grabAllAccounts(){
 	
 		try(Connection connect = ConnectionUtil.getConnection()) {
 		

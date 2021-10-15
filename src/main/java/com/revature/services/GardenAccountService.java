@@ -57,6 +57,14 @@ public class GardenAccountService {
 	
 	}
 	
+	public List<FullJoin> getAllAccounts() {
+	
+		List<FullJoin> records = gardenaccountdao.grabAllAccounts();
+		
+		return records;
+	
+	}
+	
 	public boolean updateUsername(FullJoin fulljoin) {
 	
 		return gardenaccountdao.updateUsername(fulljoin);
@@ -84,6 +92,53 @@ public class GardenAccountService {
 	public boolean updateLastName(FullJoin fulljoin) {
 	
 		return gardenaccountdao.updateLastName(fulljoin);
+		
+	}
+	
+	public boolean addBirdFeeders(FullJoin fulljoin, int feeders) {
+	
+		int currentfeeders = fulljoin.getBirdfeeders();
+		
+		currentfeeders += feeders;
+		
+		fulljoin.setBirdfeeders(currentfeeders);
+	
+		return gardenaccountdao.updateBirdFeeders(fulljoin);
+	
+	}
+	
+	public boolean removeBirdFeeders(FullJoin fulljoin, int feeders) {
+	
+		int currentfeeders = fulljoin.getBirdfeeders();
+		
+		if (feeders >= currentfeeders) {
+		
+			currentfeeders = 0;
+		
+		}
+		else {
+		
+			currentfeeders -= feeders;
+		
+		}
+		
+		fulljoin.setBirdfeeders(currentfeeders);
+		
+		return gardenaccountdao.updateBirdFeeders(fulljoin);
+	
+	}
+	
+	public boolean transferManyBirdFeeders(FullJoin from, FullJoin to, int feeders) {
+	
+		int feedersinfrom = from.getBirdfeeders();
+		
+		int transferring = (feedersinfrom - feeders >= 0) ?
+			feedersinfrom - feeders : feedersinfrom;
+			
+		addBirdFeeders(to, transferring);
+		removeBirdFeeders(from, transferring);
+		
+		return true;
 		
 	}
 	
@@ -122,7 +177,7 @@ public class GardenAccountService {
 	
 	public boolean viewAllAccounts() {
 	
-		List<FullJoin> result =  gardenaccountdao.viewAllAccounts();
+		List<FullJoin> result =  gardenaccountdao.grabAllAccounts();
 	
 		for (FullJoin fj : result) {
 		

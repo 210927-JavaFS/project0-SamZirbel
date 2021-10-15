@@ -1,6 +1,9 @@
 package com.revature.util;
 
+import java.util.List;
 import java.util.Scanner;
+
+import com.revature.models.FullJoin;
 
 public class queryUtil {
 
@@ -44,6 +47,8 @@ public class queryUtil {
 	
 		int result = Integer.parseInt(answer);
 		
+		if (result < 0) { result = 0; }
+		
 		return result;
 	
 	}
@@ -80,6 +85,19 @@ public class queryUtil {
 		}
 		
 		return answer;
+	
+	}
+	
+	public static int queryBirdFeeders() {
+	
+		String answer = scanin.nextLine();
+		
+		int result = Integer.parseInt(answer);
+		
+		if (result < 0) { result = 0; }
+		
+		return result;
+		
 	
 	}
 	

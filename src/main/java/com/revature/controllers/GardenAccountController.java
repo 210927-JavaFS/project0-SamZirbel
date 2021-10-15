@@ -1,9 +1,11 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.revature.models.FullJoin;
 import com.revature.services.GardenAccountService;
+import com.revature.util.displayUtil;
 import com.revature.util.promptUtil;
 import com.revature.util.queryUtil;
 
@@ -129,6 +131,7 @@ public class GardenAccountController {
 			echo ("8 : Transfer Bird Feeders Between Two Account's Trees");
 			echo ("9 : Set Account Type");
 			echo ("10: Update Account");
+			echo ("11: Manage Bird Feeders");
 		
 			response = scanin.nextLine();
 			
@@ -173,6 +176,9 @@ public class GardenAccountController {
 					break;
 				case "10" :
 					staffUpdateAccountUI();
+					break;
+				case "11" :
+					staffManageBirdFeedersUI();
 					break;
 					
 			
@@ -232,6 +238,87 @@ public class GardenAccountController {
 					update = promptUtil.updateLastNamePrompt();
 					fulljoin.setLastname(update);
 					gardenaccountservice.updateLastName(fulljoin);
+					break;
+			
+			} // << End Switch Case
+			
+		} // << End While Loop
+	
+	}
+	
+	public void staffManageBirdFeedersUI() {
+	
+
+		echo("Welcome To The Bird Feeder Management Portal!");
+
+		FullJoin fulljoin = null;
+		int activeaccount = 0;
+		String response = "A";
+		int feeders = 0;
+		int transferfrom = 0;
+		//int transferto = 0;
+		FullJoin fjtransferfrom = null;
+		
+		while (!response.equals("0")){
+		
+			promptUtil.staffManageBirdFeedersPrompt(fulljoin, response);
+			
+			echo ("0 : Return To Account Options");
+			echo ("1 : Select An Account To View Tree Status");
+			echo ("2 : View Grove Status");
+			echo ("3 : Add Bird Feeder");
+			echo ("4 : Remove Bird Feeder");
+			echo ("5 : Transfer Bird Feeder");
+			
+			// == Case 5 : Obtain User To Transer To && Alter Display
+			// == Case 6 : Functionality Of Transfer
+		
+			if (!response.equals("6")) { response = scanin.nextLine(); };
+			
+			switch (response) {
+			
+				case "0" :
+					break;
+				case "1" :
+					activeaccount = promptUtil.accountNumberSingularPrompt();
+					fulljoin = gardenaccountservice.getAccountFullJoin(activeaccount);
+					if (fulljoin == null) { activeaccount = 0; }
+					break;
+				case "2" :
+					List<FullJoin> all = gardenaccountservice.getAllAccounts();
+					displayUtil.displayFullGroveTreeInfo(all);
+					break;
+				case "3" :
+					feeders = promptUtil.addBirdFeedersPrompt();
+					gardenaccountservice.addBirdFeeders(fulljoin, feeders);
+					break;
+				case "4" :
+					feeders = promptUtil.removeBirdFeedersPrompt();
+					gardenaccountservice.removeBirdFeeders(fulljoin, feeders);
+					break;
+				case "5" :
+					feeders = promptUtil.transferBirdFeedersPrompt();
+					
+					transferfrom = promptUtil.transferringFromPrompt();
+					activeaccount = promptUtil.transferringToPrompt();
+					
+					fjtransferfrom = gardenaccountservice.getAccountFullJoin(transferfrom);
+					
+					
+					fulljoin = gardenaccountservice.getAccountFullJoin(activeaccount);
+
+					response = "6";
+					break;
+				case "6" :
+					response = "7";
+					
+					gardenaccountservice.transferManyBirdFeeders(fjtransferfrom, fulljoin, feeders);
+					
+					echo ("Transferred From : ");
+					echo (fjtransferfrom.viewSponsoredTreeInfo());
+					echo ("Into Active Account Below");
+					echo ("");
+					
 					break;
 			
 			} // << End Switch Case

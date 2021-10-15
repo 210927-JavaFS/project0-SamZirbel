@@ -152,5 +152,90 @@ public class promptUtil {
 		System.out.println(toprint);
 		
 	}
+	
+
+	public static void staffManageBirdFeedersPrompt(FullJoin fulljoin, String response) {
+	
+		if (!response.equals("6")) {
+		
+			echo ("");
+			echo ("Where Would You Like To Move Bird Feeders?");
+		
+			if (fulljoin == null) {
+			
+				echo ("    [ No Account Selected Yet ]");
+			
+			}
+			else {
+			
+				echo ("Viewing Account : " + fulljoin.getAccount());
+				echo (fulljoin.viewSponsoredTreeInfo());
+			
+			}
+			
+		}
+		// VV Transfer Case
+		else {
+			
+			echo ("Transferring To : ");
+			echo (fulljoin.viewSponsoredTreeInfo());
+			
+		}
+		
+		echo("");
+		
+		return;
+	
+	}
+	
+	public static int addBirdFeedersPrompt() {
+	
+		echo ("How Many Bird Feeders Would You Like To Add?");
+		
+		int response = queryUtil.queryBirdFeeders();
+		
+		return response;
+	
+	}
+	
+	public static int removeBirdFeedersPrompt() {
+	
+		echo ("How Many Bird Feeders Would You Like To Remove?");
+		
+		int response = queryUtil.queryBirdFeeders();
+		
+		return response;
+		
+	}
+	
+	public static int transferBirdFeedersPrompt() {
+	
+		echo ("How Many Bird Feeders Would You Like To Transfer?");
+		
+		int response = queryUtil.queryBirdFeeders();
+		
+		return response;
+	
+	}
+
+	public static int transferringFromPrompt() {
+	
+		echo ("What Account Should The Bird Feeders Be Transferred From?");
+		
+		int response = queryUtil.queryAccount();
+		
+		return response;
+	
+	}
+	
+	public static int transferringToPrompt() {
+	
+		echo ("What Account Should The Feeders Be Transferred To?");
+		
+		int response = queryUtil.queryAccount();
+		
+		return response;
+	
+	}
 
 }

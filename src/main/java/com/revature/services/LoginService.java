@@ -46,11 +46,11 @@ public class LoginService {
 		
 		String passwordencrypted = user.getPassword();
 		
-		System.out.println(passwordencrypted);
+		//System.out.println(passwordencrypted);
 		
 		String passworddecrypted = encryptDecryptUtil.encryptDecrypt(passwordencrypted);
 		
-		System.out.println(passworddecrypted);
+		//System.out.println(passworddecrypted);
 		
 		if (passworddecrypted.equals(password)) {
 		
