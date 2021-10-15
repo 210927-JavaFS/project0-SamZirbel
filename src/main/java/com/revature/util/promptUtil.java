@@ -193,6 +193,9 @@ public class promptUtil {
 		else {
 			
 			echo ("Transferring To : ");
+			
+
+			
 			echo (fulljoin.viewSponsoredTreeInfo());
 			
 		}

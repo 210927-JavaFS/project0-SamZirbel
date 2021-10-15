@@ -412,6 +412,14 @@ public class GardenAccountController {
 					transferfrom = promptUtil.transferringFromPrompt();
 					activeaccount = promptUtil.transferringToPrompt();
 					
+					if (gardenaccountservice.checkForValidAccount(transferfrom) == false
+						|| gardenaccountservice.checkForValidAccount(activeaccount) == false) {
+						
+						response = "7";
+						break;
+						
+					}
+					
 					fjtransferfrom = gardenaccountservice.getAccountFullJoin(transferfrom);
 					
 					
